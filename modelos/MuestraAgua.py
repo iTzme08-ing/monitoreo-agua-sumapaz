@@ -35,3 +35,42 @@ class MuestraAgua:
 
     def getFuenteAgua(self):
         return self.__fuenteAgua
+
+    # Setters
+
+    def setFecha(self, fecha):
+        if not isinstance(fecha, str) or not fecha.strip():
+            raise ValueError("La fecha no puede estar vacía.")
+        self.__fecha = fecha.strip()
+
+    def setPh(self, ph):
+        if type(ph) not in (int, float) or not 0 <= ph <= 14:
+            raise ValueError("El pH debe estar entre 0 y 14.")
+        self.__ph = float(ph)
+
+    def setTurbidez(self, turbidez):
+        if type(turbidez) not in (int, float) or turbidez < 0:
+            raise ValueError("La turbidez no puede ser negativa.")
+        self.__turbidez = float(turbidez)
+
+    def setPresenciaEcoli(self, presencia):
+        if type(presencia) != bool:
+            raise ValueError("La presencia de E. coli debe ser True o False.")
+        self.__presenciaEcoli = presencia
+
+    def setContaminacionMicrobiologica(self, contaminacion):
+        if not isinstance(contaminacion, str) or not contaminacion.strip():
+            raise ValueError("Debe describir el resultado microbiológico.")
+        self.__contaminacionMicrobiologica = contaminacion.strip()
+
+    def setNivelSedimentos(self, nivel):
+        if type(nivel) not in (int, float) or nivel < 0:
+            raise ValueError("El nivel de sedimentos no puede ser negativo.")
+        self.__nivelSedimentos = float(nivel)
+
+    def setFuenteAgua(self, fuente):
+        from modelos.FuenteAgua import FuenteAgua
+
+        if not isinstance(fuente, FuenteAgua):
+            raise ValueError("Debe asociar una fuente de agua válida.")
+        self.__fuenteAgua = fuente
