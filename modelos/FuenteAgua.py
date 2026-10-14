@@ -66,3 +66,6 @@ class FuenteAgua:
         self.setTipoFuente(self.__tipoFuente)
         self.setPoblacionBeneficiada(self.__poblacionBeneficiada)
         self.setNivelRiesgo(self.__nivelRiesgo)
+
+    def consultarEstado(self):
+        return self.__nivelRiesgo
