@@ -74,3 +74,35 @@ class MuestraAgua:
         if not isinstance(fuente, FuenteAgua):
             raise ValueError("Debe asociar una fuente de agua válida.")
         self.__fuenteAgua = fuente
+
+    # Metodos principales
+
+    def calcularRiesgo(self):
+        anomalías = 0
+
+        if self.__presenciaEcoli:
+            self.__nivelRiesgo = "Crítico"
+            return self.__nivelRiesgo
+
+        resultado = self.__contaminacionMicrobiologica.strip().lower()
+        if resultado not in ("ninguna", "no detectada", "ausente"):
+            anomalías += 1
+
+        # Criterios para determinar el nivel de riesgo basado en los parámetros de la muestra
+        if not 6.5 <= self.__ph <= 8.5:
+            anomalías += 1
+
+        if self.__turbidez > 5:
+            anomalías += 1
+
+        if self.__nivelSedimentos > 5:
+            anomalías += 1
+
+        if anomalías >= 2:
+            self.__nivelRiesgo = "Alto"
+        elif anomalías == 1:
+            self.__nivelRiesgo = "Medio"
+        else:
+            self.__nivelRiesgo = "Bajo"
+
+        return self.__nivelRiesgo
