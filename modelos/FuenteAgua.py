@@ -59,3 +59,10 @@ class FuenteAgua:
 
         self.__nivelRiesgo = nivelRiesgo.strip().capitalize()
 
+# Metodos principales
+    def registrarFuente(self):
+        self.setNombre(self.__nombre)
+        self.setUbicacion(self.__ubicacion)
+        self.setTipoFuente(self.__tipoFuente)
+        self.setPoblacionBeneficiada(self.__poblacionBeneficiada)
+        self.setNivelRiesgo(self.__nivelRiesgo)
