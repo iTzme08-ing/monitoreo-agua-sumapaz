@@ -106,3 +106,15 @@ class MuestraAgua:
             self.__nivelRiesgo = "Bajo"
 
         return self.__nivelRiesgo
+
+    def evaluarCalidad(self):
+        riesgo = self.calcularRiesgo()
+
+        if riesgo == "Bajo":
+            return "Sin alertas según los criterios del prototipo"
+        elif riesgo == "Medio":
+            return "Requiere seguimiento"
+        elif riesgo == "Alto":
+            return "Requiere atención prioritaria"
+        else:
+            return "Riesgo crítico: requiere atención inmediata"
