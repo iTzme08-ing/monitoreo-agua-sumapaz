@@ -22,3 +22,8 @@ class Usuario:
         if not fuentes:
             return "No hay fuentes de agua registradas."
         return fuentes
+
+    def consultarMuestras(self, muestras):
+        if not muestras:
+            return "No hay muestras de agua registradas."
+        return muestras
