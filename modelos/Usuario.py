@@ -9,3 +9,10 @@ class Usuario:
 
     def getRol(self):
         return self.__rol
+
+    # Setters
+    def setNombre(self, nombre):
+        self.__nombre = nombre
+
+    def setRol(self, rol):
+        self.__rol = rol
