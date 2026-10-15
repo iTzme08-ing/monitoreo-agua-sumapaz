@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from modelos.SistemaMonitoreo import SistemaMonitoreo
+from servicios.SistemaMonitoreo import SistemaMonitoreo
 from interfaz.VentanaPrincipal import VentanaPrincipal
 
 def main():
