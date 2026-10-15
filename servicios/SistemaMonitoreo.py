@@ -6,6 +6,8 @@ class SistemaMonitoreo:
         self.__fuentes = []
         self.__muestras = []
 
+    # Metodos principales
+
     def registrarFuente(self, fuente):
         if not isinstance(fuente, FuenteAgua):
             raise ValueError("Debe ingresar una fuente de agua válida.")
@@ -16,3 +18,15 @@ class SistemaMonitoreo:
 
         fuente.registrarFuente()
         self.__fuentes.append(fuente)
+
+    def registrarMuestra(self, muestra):
+        if not isinstance(muestra, MuestraAgua):
+            raise ValueError("Debe ingresar una muestra válida.")
+
+        fuente = muestra.getFuenteAgua()
+
+        if not any(fuente is registrada for registrada in self.__fuentes):
+            raise ValueError("La fuente de la muestra no está registrada.")
+
+        muestra.calcularRiesgo()
+        self.__muestras.append(muestra)
