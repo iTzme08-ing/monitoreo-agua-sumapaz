@@ -5,12 +5,8 @@ from interfaz.VentanaPrincipal import VentanaPrincipal
 
 def main():
     sistema = SistemaMonitoreo()
-
-    ventana = tk.Tk()
-    aplicacion = VentanaPrincipal(ventana, sistema)
-
-    ventana.mainloop()
-
+    aplicacion = VentanaPrincipal(sistema)
+    aplicacion.mainloop()
 
 if __name__ == "__main__":
     main()
