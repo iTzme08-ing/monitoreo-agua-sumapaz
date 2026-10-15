@@ -16,3 +16,9 @@ class Usuario:
 
     def setRol(self, rol):
         self.__rol = rol
+
+    # Métodos de consulta
+    def consultarFuente(self, fuentes):
+        if not fuentes:
+            return "No hay fuentes de agua registradas."
+        return fuentes
