@@ -1,29 +1,23 @@
 class Usuario:
-    def __init__(self, nombre, rol):
-        self.__nombre = nombre
-        self.__rol = rol
+    """Usuario del sistema; los permisos dependen de su rol."""
 
-    # Getters
-    def getNombre(self):
-        return self.__nombre
+    PERMISOS = {
+        "funcionario": {"registrar_fuente", "registrar_muestra", "consultar", "historial", "alertas"},
+        "responsable": {"registrar_muestra", "consultar", "alertas"},
+        "comunidad": {"consultar", "alertas"},
+        "administrador": {"registrar_fuente", "registrar_muestra", "consultar",
+                          "historial", "alertas"},
+    }
 
-    def getRol(self):
-        return self.__rol
+    def __init__(self, id_usuario, nombre, rol):
+        if rol not in self.PERMISOS:
+            raise ValueError(f"Rol no válido. Opciones: {', '.join(self.PERMISOS)}")
+        self.id_usuario = id_usuario
+        self.nombre = nombre
+        self.rol = rol
 
-    # Setters
-    def setNombre(self, nombre):
-        self.__nombre = nombre
+    def puede(self, accion):
+        return accion in self.PERMISOS[self.rol]
 
-    def setRol(self, rol):
-        self.__rol = rol
-
-    # Métodos de consulta
-    def consultarFuente(self, fuentes):
-        if not fuentes:
-            return "No hay fuentes de agua registradas."
-        return fuentes
-
-    def consultarMuestras(self, muestras):
-        if not muestras:
-            return "No hay muestras de agua registradas."
-        return muestras
+    def __str__(self):
+        return f"{self.nombre} ({self.rol})"

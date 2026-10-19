@@ -1,71 +1,26 @@
 class FuenteAgua:
-    def __init__(self, nombre, ubicacion, tipoFuente,
-                 poblacionBeneficiada, nivelRiesgo):
-        self.__nombre = nombre
-        self.__ubicacion = ubicacion
-        self.__tipoFuente = tipoFuente
-        self.__poblacionBeneficiada = poblacionBeneficiada
-        self.__nivelRiesgo = nivelRiesgo
+    """Fuente hídrica de una vereda de Sumapaz con su historial de muestras."""
 
-    # Getters
-    def getNombre(self):
-            return self.__nombre
-    
-    def getUbicacion(self):
-            return self.__ubicacion
-    
-    def getTipoFuente(self):
-            return self.__tipoFuente
-    
-    def getPoblacionBeneficiada(self):
-            return self.__poblacionBeneficiada
-    
-    def getNivelRiesgo(self):
-            return self.__nivelRiesgo
+    TIPOS = ("quebrada", "nacimiento", "rio", "pozo", "acueducto veredal")
 
-    # Setters
-    def setNombre(self, nombre):
-        if not isinstance(nombre, str) or not nombre.strip():
-            raise ValueError("El nombre no puede estar vacío.")
-        self.__nombre = nombre.strip()
+    def __init__(self, id_fuente, nombre, vereda, tipo="quebrada"):
+        if not nombre.strip() or not vereda.strip():
+            raise ValueError("Nombre y vereda son obligatorios.")
+        if tipo not in self.TIPOS:
+            raise ValueError(f"Tipo no válido. Opciones: {', '.join(self.TIPOS)}")
+        self.id_fuente = id_fuente
+        self.nombre = nombre.strip()
+        self.vereda = vereda.strip()
+        self.tipo = tipo
+        self.muestras = []
 
-    def setUbicacion(self, ubicacion):
-        if not isinstance(ubicacion, str) or not ubicacion.strip():
-            raise ValueError("La ubicación no puede estar vacía.")
-        self.__ubicacion = ubicacion.strip()
+    def agregar_muestra(self, muestra):
+        if muestra.id_fuente != self.id_fuente:
+            raise ValueError("La muestra pertenece a otra fuente.")
+        self.muestras.append(muestra)
 
-    def setTipoFuente(self, tipoFuente):
-        if not isinstance(tipoFuente, str) or not tipoFuente.strip():
-            raise ValueError("El tipo de fuente no puede estar vacío.")
-        self.__tipoFuente = tipoFuente.strip()
+    def ultima_muestra(self):
+        return self.muestras[-1] if self.muestras else None
 
-    def setPoblacionBeneficiada(self, poblacion):
-        if type(poblacion) != int or poblacion < 0:
-            raise ValueError(
-                "La población debe ser un entero mayor o igual a cero."
-            )
-        self.__poblacionBeneficiada = poblacion
-
-    def setNivelRiesgo(self, nivelRiesgo):
-        niveles = ["Bajo", "Medio", "Alto", "Crítico"]
-
-        if not isinstance(nivelRiesgo, str):
-            raise ValueError("El nivel de riesgo debe ser texto.")
-
-        if nivelRiesgo.strip().capitalize() not in niveles:
-            raise ValueError(
-                "El riesgo debe ser Bajo, Medio, Alto o Crítico."
-            )
-
-        self.__nivelRiesgo = nivelRiesgo.strip().capitalize()
-
-# Metodos principales
-    def registrarFuente(self):
-        self.setNombre(self.__nombre)
-        self.setUbicacion(self.__ubicacion)
-        self.setTipoFuente(self.__tipoFuente)
-        self.setPoblacionBeneficiada(self.__poblacionBeneficiada)
-        self.setNivelRiesgo(self.__nivelRiesgo)
-
-    def consultarEstado(self):
-        return self.__nivelRiesgo
+    def __str__(self):
+        return f"[{self.id_fuente}] {self.nombre} - {self.tipo}, vereda {self.vereda}"
